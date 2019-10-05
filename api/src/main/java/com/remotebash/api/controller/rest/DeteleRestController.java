@@ -1,4 +1,4 @@
-package com.remotebash.controller.rest;
+package com.remotebash.api.controller.rest;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.remotebash.model.Computer;
-import com.remotebash.model.Laboratory;
-import com.remotebash.model.User;
+import com.remotebash.api.model.Computer;
+import com.remotebash.api.model.Laboratory;
+import com.remotebash.api.model.User;
 
 @RestController
 @RequestMapping("/delete")

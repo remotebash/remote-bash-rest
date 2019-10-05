@@ -1,4 +1,4 @@
-package com.remotebash.configuration;
+package com.remotebash.api.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

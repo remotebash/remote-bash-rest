@@ -1,4 +1,4 @@
-package com.remotebash.configuration;
+package com.remotebash.api.configuration;
 
 public class Configuration {
 

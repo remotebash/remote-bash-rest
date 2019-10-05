@@ -1,12 +1,13 @@
-package com.remotebash.model;
+package com.remotebash.api.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,10 +19,9 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id
-	@GeneratedValue
-	@Column(name = ColumnName.ID)
-	private UUID id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = ColumnName.USER_ID)
+	private Long id;
 	@Column(name = ColumnName.NAME)
 	private String name;
 	
@@ -37,17 +37,29 @@ public class User {
 	@Column(name = ColumnName.ADDRESS)
 	private String address;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = TableName.ROLE_USER,  
-	joinColumns = {@JoinColumn (name = ColumnName.USER_FK)}, 
-	inverseJoinColumns = {@JoinColumn (name = ColumnName.ROLE_FK)})
+	joinColumns = {@JoinColumn (name = ColumnName.USER_ID)}, 
+	inverseJoinColumns = {@JoinColumn (name = ColumnName.ROLE_ID_FK)})
 	private Set<Role> roleSet = new HashSet<>();
+	
+	public User(Long id, String name, String password, String cellphone, String email, String address,
+			Set<Role> roleSet) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.cellphone = cellphone;
+		this.email = email;
+		this.address = address;
+		this.roleSet = roleSet;
+	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -100,14 +112,13 @@ public class User {
 	}
 	
 	private class ColumnName {
-		private static final String ID = "ID";
+		private static final String USER_ID = "USER_ID";
 		private static final String NAME = "NAME";
 		private static final String PASSWORD = "PASSWORD";
 		private static final String CELLPHONE = "CELLPHONE";
 		private static final String EMAIL = "EMAIL";
 		private static final String ADDRESS = "ADRESS";
-		private static final String USER_FK = "USER_FK";
-		private static final String ROLE_FK = "ROLE_FK";
+		private static final String ROLE_ID_FK = "ROLE_ID";
 	}
 	
 	public static class TableName {

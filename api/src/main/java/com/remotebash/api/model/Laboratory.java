@@ -1,10 +1,9 @@
-package com.remotebash.model;
-
-import java.util.UUID;
+package com.remotebash.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,9 +12,9 @@ import javax.persistence.Table;
 public class Laboratory {
 
 	@Id
-	@GeneratedValue
-	@Column(name = ColumnName.ID )
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = ColumnName.LABORATORY_ID)
+	private Long id;
 	
 	@Column(name = ColumnName.FLOOR)
 	private String floor;
@@ -23,11 +22,11 @@ public class Laboratory {
 	@Column(name = ColumnName.CAPACITY)
 	private String capacity;
 	
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -48,7 +47,7 @@ public class Laboratory {
 	}
 
 	private static class ColumnName {
-		static final String ID = "ID";
+		static final String LABORATORY_ID = "ID";
 		static final String FLOOR = "FLOOR";
 		static final String CAPACITY = "CAPACITY";
 	}

@@ -1,10 +1,9 @@
-package com.remotebash.model;
-
-import java.util.UUID;
+package com.remotebash.api.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,9 +11,9 @@ import javax.persistence.Table;
 @Table(name = Computer.TableName.COMPUTER)
 public class Computer {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = ColumnName.ID)
-	private UUID id;
+	private Long id;
 	
 	@Column(name = ColumnName.MACADDRESS)
 	private String macaddress;
@@ -40,11 +39,11 @@ public class Computer {
 	@Column(name = ColumnName.PROCESSOR_MODEL)
 	private String processorModel; 
 	
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

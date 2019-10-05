@@ -4,8 +4,8 @@ public class RegisterUserException extends RegisterException{
 
 	private static final long serialVersionUID = 1L;
 
-	public RegisterUserException(String mensagem) {
-		super(mensagem);
+	public RegisterUserException(String message) {
+		super(message);
 	}
 	
 	@Override

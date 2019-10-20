@@ -31,4 +31,8 @@ public class UserService {
         user.setRoleSet(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
+	
+	public User getUserById(Long id) {
+		return userRepository.getOne(id);
+	}
 }

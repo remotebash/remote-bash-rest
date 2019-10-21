@@ -1,6 +1,6 @@
 package com.remotebash.api.exception;
 
-public class RegisterUserException extends RegisterException{
+public class RegisterUserException extends UserException{
 
 	private static final long serialVersionUID = 1L;
 

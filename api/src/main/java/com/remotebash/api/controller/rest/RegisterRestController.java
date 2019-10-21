@@ -1,6 +1,7 @@
 package com.remotebash.api.controller.rest;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +23,13 @@ public class RegisterRestController {
 		super();
 		this.userService = userService;
 	}
-
+	
+	@CrossOrigin
 	@PostMapping("/users")
 	public ResponseEntity<String> registerUsers(@RequestBody User user) {
 		try {
 			userService.saveUser(user);
-			return ResponseEntity.ok("Usuário cadastrado com sucesso");
+			return ResponseEntity.ok().body("Usuário cadastrado com sucesso!");
 		} catch (RegisterUserException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

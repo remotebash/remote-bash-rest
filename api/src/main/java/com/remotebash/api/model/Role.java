@@ -19,6 +19,8 @@ public class Role {
 	@Column(name = ColumnName.ROLE)
 	private String role;  
 
+	public Role() {}
+	
 	public Role(Long id, String role) {
 		super();
 		this.id = id;

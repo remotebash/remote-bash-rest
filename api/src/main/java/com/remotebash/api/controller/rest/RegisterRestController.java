@@ -13,6 +13,10 @@ import com.remotebash.api.model.Laboratory;
 import com.remotebash.api.model.User;
 import com.remotebash.api.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("/register")
 public class RegisterRestController {
@@ -24,6 +28,11 @@ public class RegisterRestController {
 		this.userService = userService;
 	}
 	
+	@ApiOperation(value = "Cadastrar usuários", notes = "Cadastrar usuário")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Usuário cadastrado com sucesso")
+    })
+	
 	@CrossOrigin
 	@PostMapping("/users")
 	public ResponseEntity<String> registerUsers(@RequestBody User user) {
@@ -34,6 +43,7 @@ public class RegisterRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	} 
+	
 	
 	@PostMapping("/computers")
 	public void registerComputers(@RequestBody Computer computer) {

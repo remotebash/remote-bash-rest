@@ -6,7 +6,7 @@ import java.util.HashSet;
 import org.springframework.stereotype.Service;
 
 import com.remotebash.api.configuration.WebMvcConfig;
-import com.remotebash.api.exception.RegisterUserException;
+import com.remotebash.api.exception.RegisterException;
 import com.remotebash.api.model.Role;
 import com.remotebash.api.model.User;
 import com.remotebash.api.repository.RoleRepository;
@@ -29,7 +29,7 @@ public class UserService {
 		return userRepository.findUserByEmail(email); 
 	}
 
-	public void saveUser(User user) throws RegisterUserException {
+	public void saveUser(User user) throws RegisterException {
 	
 		this.validateIfUserEmailAlreadyExists(user.getEmail());
 		
@@ -39,12 +39,12 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
-	public void validateIfUserEmailAlreadyExists(String email) throws RegisterUserException {
+	public void validateIfUserEmailAlreadyExists(String email) throws RegisterException {
 		
 		User userEmail = userRepository.findUserByEmail(email);
 		
 		if (userEmail != null) {
-			throw new RegisterUserException("Email já existente");
+			throw new RegisterException("Email já existente");
 		}
 
 	}

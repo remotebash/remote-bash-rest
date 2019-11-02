@@ -1,6 +1,5 @@
 package com.remotebash.api.controller.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,13 +18,13 @@ import com.remotebash.api.service.UserService;
 @RequestMapping("/register")
 public class RegisterRestController {
 
-	@Autowired
-	private CommandService commandService;
+	private final CommandService commandService;
 	private final UserService userService; 
 	
-	public RegisterRestController(UserService userService) {
+	public RegisterRestController(UserService userService, CommandService commandService) {
 		super();
 		this.userService = userService;
+		this.commandService = commandService;
 	}
 
 	@PostMapping("/users")

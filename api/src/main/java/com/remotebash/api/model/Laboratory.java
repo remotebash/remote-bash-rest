@@ -22,6 +22,15 @@ public class Laboratory {
 	@Column(name = ColumnName.CAPACITY)
 	private String capacity;
 	
+	public Laboratory() {}
+	
+	public Laboratory(Long id, String floor, String capacity) {
+		super();
+		this.id = id;
+		this.floor = floor;
+		this.capacity = capacity;
+	}
+
 	public Long getId() {
 		return id;
 	}

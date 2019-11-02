@@ -7,4 +7,6 @@ import com.remotebash.api.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	
+	User findUserByEmail(String email);
 }

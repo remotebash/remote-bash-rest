@@ -42,6 +42,22 @@ public class Computer {
 	@Column(name = ColumnName.PLATFORM)
 	private String platform;
 	
+	public Computer () {}
+	
+	public Computer(Long id, String macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
+			String hdUsage, String processorBrand, String processorModel) {
+		super();
+		this.id = id;
+		this.macaddress = macaddress;
+		this.ip = ip;
+		this.operationalSystem = operationalSystem;
+		this.ramMemory = ramMemory;
+		this.hdTotal = hdTotal;
+		this.hdUsage = hdUsage;
+		this.processorBrand = processorBrand;
+		this.processorModel = processorModel;
+	}
+
 	public Long getId() {
 		return id;
 	}

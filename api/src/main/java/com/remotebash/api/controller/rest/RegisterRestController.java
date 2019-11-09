@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.remotebash.api.exception.RegisterException;
 import com.remotebash.api.model.Computer;
+import com.remotebash.api.model.Command;
 import com.remotebash.api.model.Laboratory;
 import com.remotebash.api.model.User;
 import com.remotebash.api.service.ComputerService;
 import com.remotebash.api.service.LaboratoryService;
+import com.remotebash.api.service.CommandService;
 import com.remotebash.api.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -23,17 +25,18 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/register")
 public class RegisterRestController {
-
 	private final UserService userService;
 	private final ComputerService computerService;
 	private final LaboratoryService laboratoryService;
-	
+	private final CommandService commandService;
+    
 	public RegisterRestController(UserService userService, ComputerService computerService,
-			LaboratoryService laboratoryService) {
+			LaboratoryService laboratoryService, CommandService commandService) {
 		super();
 		this.userService = userService;
 		this.computerService = computerService;
 		this.laboratoryService = laboratoryService;
+    this.commandService = commandService;
 	}
 
 	@ApiOperation(value = "Cadastrar usuários", notes = "Cadastrar usuário")
@@ -71,5 +74,19 @@ public class RegisterRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+  
+  @ApiOperation(value = "Cadastro de execução de comandos", notes = "Cadastro de execução de comandos")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Objeto do tipo Command") })
+  @PostMapping("/command")
+	public ResponseEntity<Command> registerExecutionCommand(@RequestBody Command command) {
+		try {
+			Command commandExecuted = commandService.executeCommand(command);
+			return ResponseEntity.ok(commandExecuted);
+		} catch (Exception e) {
+			Command cmd = new Command();
+			cmd.setResult(e.getMessage());
+			return ResponseEntity.badRequest().body(cmd);
+		}
+	}
+  
 }

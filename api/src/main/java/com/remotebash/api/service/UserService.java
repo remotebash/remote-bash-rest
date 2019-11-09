@@ -39,6 +39,7 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
+
 	public void validateIfUserEmailAlreadyExists(String email) throws RegisterException {
 		
 		User userEmail = userRepository.findUserByEmail(email);
@@ -47,5 +48,7 @@ public class UserService {
 			throw new RegisterException("Email já existente");
 		}
 
+  public User getUserById(Long id) {
+		return userRepository.getOne(id);
 	}
 }

@@ -1,5 +1,7 @@
 package com.remotebash.api.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.remotebash.api.exception.RegisterException;
@@ -20,5 +22,12 @@ public class LaboratoryService {
 		laboratoryRepository.save(laboratory);
 	}
 	
-
+	public Laboratory getLaboratoryById(Long id) {
+		return laboratoryRepository.getOne(id);
+	}
+	
+	public Laboratory findLaboratoriesById(List<Long> laboratoryIdList) {
+		return laboratoryRepository.findByIdIn(laboratoryIdList);
+	}
+	
 }

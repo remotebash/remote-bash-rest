@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -41,6 +43,10 @@ public class Computer {
 
 	@Column(name = ColumnName.PLATFORM)
 	private String platform;
+	
+	@ManyToOne
+	@JoinColumn(name = ColumnName.LABORATORY_ID, referencedColumnName = ColumnName.ID)
+	private Laboratory laboratory;
 	
 	public Computer () {}
 	
@@ -149,6 +155,7 @@ public class Computer {
 		private static final String PROCESSOR_BRAND = "PROCESSOR_BRAND";
 		private static final String PROCESSOR_MODEL = "PROCESSOR_MODEL";
 		private static final String PLATFORM = "PLATFORM";
+		private static final String LABORATORY_ID = "LABORATORY_ID";
 	}
 	
 	public static class TableName {

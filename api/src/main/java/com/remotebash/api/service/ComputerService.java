@@ -1,5 +1,7 @@
 package com.remotebash.api.service;
 
+import java.util.List;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -15,28 +17,35 @@ import com.remotebash.api.repository.ComputerRepository;
 @Service
 public class ComputerService {
 	private final ComputerRepository computerRepository;
-  private final static String URL_MICROSERVICE_ONLINE = "https://remotebash.herokuapp.com/";
+	private final static String URL_MICROSERVICE_ONLINE = "https://remotebash.herokuapp.com/";
 
 	public ComputerService(ComputerRepository computerRepository) {
 		super();
 		this.computerRepository = computerRepository;
-	} 
-	
-	
-	public void saveComputer(Computer computer) throws RegisterException{
+	}
+
+	public void saveComputer(Computer computer) throws RegisterException {
 		computerRepository.save(computer);
 	}
-	
-  public Computer getComputerById(Long id) {
+
+	public Computer getComputerById(Long id) {
 		return computerRepository.getOne(id);
 	}
 
-  public boolean isComputerOnline(Long idComputer) {
+	public boolean isComputerOnline(Long idComputer) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URL_MICROSERVICE_ONLINE).path("/status/123");
-		Invocation.Builder invocationBuilder =  webTarget.request("application/json;charset=UTF-8"); 
+		Invocation.Builder invocationBuilder = webTarget.request("application/json;charset=UTF-8");
 		Response response = invocationBuilder.get();
 		JSONObject data = new JSONObject(response.readEntity(String.class));
 		return data.getString("status").toLowerCase().equals("online");
-	}	
+	}
+	
+	public Computer searchComputersByMacAddress(List<String> macAddressList) {
+		return computerRepository.findByMacaddressIn(macAddressList);
+	}
+	
+	public Computer searchComputersByIdIn(List<Long> computerListId) {
+		return computerRepository.findByIdIn(computerListId);
+	}
 }

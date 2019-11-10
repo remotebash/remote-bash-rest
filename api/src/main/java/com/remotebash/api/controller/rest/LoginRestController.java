@@ -1,6 +1,7 @@
 package com.remotebash.api.controller.rest;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class LoginRestController {
 		this.userService = userService;
 	} 
 	
-	@PostMapping
+	@GetMapping
 	public ResponseEntity<String> login(@RequestBody User user) {
 		User userExists = userService.findUserByEmail(user.getEmail()); 
 		return userExists != null ? ResponseEntity.ok().body("Usuário logado!") : ResponseEntity.badRequest().build();

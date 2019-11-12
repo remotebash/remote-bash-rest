@@ -31,13 +31,13 @@ public class SearchRestController {
 	}
 
 	@GetMapping("/users")
-	public User searchUsers(@RequestParam("userList") List<Long> userIdList) {
-		return userService.findUserByIdIn(userIdList);
+	public List<User> searchUsers() {
+		return userService.findUsers();
 	}
 	
 	@GetMapping("/laboratories")
-	public Laboratory searchLaboratories(@RequestParam("laboratoryIdList") List<Long> laboratoryIdList) {
-		return laboratoryService.findLaboratoriesById(laboratoryIdList);
+	public List<Laboratory> searchLaboratories() {
+		return laboratoryService.findLaboratories();
 	}
 	
 	@GetMapping("/users/{id}")

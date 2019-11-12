@@ -30,4 +30,7 @@ public class LaboratoryService {
 		return laboratoryRepository.findByIdIn(laboratoryIdList);
 	}
 	
+	public List<Laboratory> findLaboratories() {
+		return laboratoryRepository.findAll();
+	}
 }

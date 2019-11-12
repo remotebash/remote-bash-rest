@@ -56,4 +56,8 @@ public class UserService {
 	public User findUserByIdIn(List<Long> userIdList) {
 		return userRepository.findByIdIn(userIdList);
 	}
+	
+	public List<User> findUsers() {
+		return userRepository.findAll();
+	}
 }

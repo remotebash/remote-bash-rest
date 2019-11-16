@@ -34,7 +34,7 @@ public class ComputerService {
 
 	public boolean isComputerOnline(Long idComputer) {
 		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client.target(URL_MICROSERVICE_ONLINE).path("/status/123");
+		WebTarget webTarget = client.target(URL_MICROSERVICE_ONLINE).path("/status/" + idComputer);
 		Invocation.Builder invocationBuilder = webTarget.request("application/json;charset=UTF-8");
 		Response response = invocationBuilder.get();
 		JSONObject data = new JSONObject(response.readEntity(String.class));

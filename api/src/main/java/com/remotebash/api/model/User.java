@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = User.TableName.USER)
 public class User {
@@ -25,6 +27,7 @@ public class User {
 	@Column(name = ColumnName.NAME)
 	private String name;
 	
+	@JsonIgnore
 	@Column(name = ColumnName.PASSWORD)
 	private String password;
 	
@@ -37,6 +40,8 @@ public class User {
 	@Column(name = ColumnName.ADDRESS)
 	private String address;
 	
+	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = TableName.ROLE_USER,  
 	joinColumns = {@JoinColumn (name = ColumnName.USER_ID)}, 

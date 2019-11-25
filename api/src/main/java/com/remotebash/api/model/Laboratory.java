@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,25 +20,30 @@ public class Laboratory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = ColumnName.LABORATORY_ID)
+	@Column(name = ColumnName.ID)
 	private Long id;
 	
-	@Column(name = ColumnName.FLOOR)
-	private String floor;
-	
-	@Column(name = ColumnName.CAPACITY)
-	private String capacity;
+	@Column(name = ColumnName.NAME)
+	private String name;
+
+	@Column(name = ColumnName.DESCRIPTION)
+	private String description;
 	
 	@OneToMany(mappedBy = "laboratory", fetch = FetchType.LAZY)
 	private Set<Computer> computerSet = new HashSet<>();	
 	
+	@ManyToOne
+	@JoinColumn(name = ColumnName.USER_ID, referencedColumnName = ColumnName.USER_ID)
+	private User user; 
+	
 	public Laboratory() {}
 	
-	public Laboratory(Long id, String floor, String capacity) {
+	public Laboratory(Long id, String name, String description, Set<Computer> computerSet) {
 		super();
 		this.id = id;
-		this.floor = floor;
-		this.capacity = capacity;
+		this.name = name;
+		this.description = description;
+		this.computerSet = computerSet;
 	}
 
 	public Long getId() {
@@ -46,27 +53,44 @@ public class Laboratory {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getFloor() {
-		return floor;
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setFloor(String floor) {
-		this.floor = floor;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getCapacity() {
-		return capacity;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setCapacity(String capacity) {
-		this.capacity = capacity;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Set<Computer> getComputerSet() {
+		return computerSet;
+	}
+
+	public void setComputerSet(Set<Computer> computerSet) {
+		this.computerSet = computerSet;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	private static class ColumnName {
-		static final String LABORATORY_ID = "ID";
-		static final String FLOOR = "FLOOR";
-		static final String CAPACITY = "CAPACITY";
+		static final String USER_ID = "USER_ID";
+		static final String ID = "ID";
+		static final String DESCRIPTION = "DESCRIPTION";
+		static final String NAME = "NAME";
 	}
 	
 	public static class TableName {

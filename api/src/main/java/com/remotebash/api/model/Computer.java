@@ -143,6 +143,14 @@ public class Computer {
 	public String getPlatform() {
 		return this.platform;
 	}
+	
+	public Laboratory getLaboratory() {
+		return laboratory;
+	}
+
+	public void setLaboratory(Laboratory laboratory) {
+		this.laboratory = laboratory;
+	}
 
 	private static class ColumnName {
 		private static final String ID = "ID";

@@ -83,9 +83,14 @@ public class RegisterRestController {
 			Command commandExecuted = commandService.executeCommand(command);
 			return ResponseEntity.ok(commandExecuted);
 		} catch (Exception e) {
-			Command cmd = new Command();
-			cmd.setResult(e.getMessage());
-			return ResponseEntity.badRequest().body(cmd);
+			if(command != null) {
+				command.setResult(e.getMessage());
+				return ResponseEntity.badRequest().body(command);
+			}else {
+				Command cmd = new Command();
+				cmd.setResult(e.getMessage());
+				return ResponseEntity.badRequest().body(cmd);	
+			}			
 		}
 	}
   

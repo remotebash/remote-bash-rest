@@ -8,9 +8,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.stereotype.Service;
+
 import com.remotebash.api.model.Command;
 import com.remotebash.api.model.Computer;
 import com.remotebash.api.model.User;
@@ -51,12 +53,14 @@ public class CommandService {
 		command.setStart(new Date());
 		command.setExecuted(false);
 		command.setEnd(null);
-		command.setPlatform(computer.getPlatform());
+		command.setResult("");
+		command.setOperationalSystem(computer.getOperationalSystem());
+		
 		
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(URL_MICROSERVICE_COMMAND).path("/command");
-		Invocation.Builder invocationBuilder =  webTarget.request("application/json;charset=UTF-8"); 
-		Response response = invocationBuilder.post(Entity.entity(command, "application/json;charset=UTF-8"));
+		Invocation.Builder invocationBuilder =  webTarget.request("application/json");
+		Response response = invocationBuilder.post(Entity.entity(command,MediaType.APPLICATION_JSON));
 		
 		return response.readEntity(Command.class);
 	}	

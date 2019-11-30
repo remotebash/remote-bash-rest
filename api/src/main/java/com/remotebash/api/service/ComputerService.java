@@ -48,4 +48,9 @@ public class ComputerService {
 	public Computer searchComputersByIdIn(List<Long> computerListId) {
 		return computerRepository.findByIdIn(computerListId);
 	}
+	
+	public void deleteComputer(Long id) {
+		computerRepository.deleteById(id);
+	}
+	
 }

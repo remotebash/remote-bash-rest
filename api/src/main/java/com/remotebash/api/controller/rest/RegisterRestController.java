@@ -44,6 +44,7 @@ public class RegisterRestController {
 	@PostMapping("/users")
 	public ResponseEntity<String> registerUsers(@RequestBody User user) {
 		try {
+			userService.validateIfUserEmailAlreadyExists(user.getEmail());
 			userService.saveUser(user);
 			return ResponseEntity.ok().body("Usuário cadastrado com sucesso!");
 		} catch (RegisterException e) {

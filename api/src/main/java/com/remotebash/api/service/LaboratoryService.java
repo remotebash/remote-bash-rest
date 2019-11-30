@@ -33,4 +33,8 @@ public class LaboratoryService {
 	public List<Laboratory> findLaboratories() {
 		return laboratoryRepository.findAll();
 	}
+	
+	public void deleteLaboratory(Long id) {
+		laboratoryRepository.deleteById(id);
+	}
 }

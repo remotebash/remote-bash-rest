@@ -4,9 +4,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.remotebash.api.configuration.WebMvcConfig;
 import com.remotebash.api.exception.RegisterException;
 import com.remotebash.api.model.Role;
 import com.remotebash.api.model.User;
@@ -17,13 +18,14 @@ import com.remotebash.api.repository.UserRepository;
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final WebMvcConfig webMvcConfig;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final RoleRepository roleRepository;
 
-	public UserService(UserRepository userRepository, WebMvcConfig webMvcConfig, RoleRepository roleRepository) {
+	public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userRepository = userRepository;
-		this.webMvcConfig = webMvcConfig;
-		this.roleRepository = roleRepository;
+		this.roleRepository = roleRepository;		
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	
 	}
 
 	public User findUserByEmail(String email) {
@@ -31,13 +33,10 @@ public class UserService {
 	}
 
 	public void saveUser(User user) throws RegisterException {
-
-		this.validateIfUserEmailAlreadyExists(user.getEmail());
-
-		user.setPassword(webMvcConfig.passwordEncoder().encode(user.getPassword()));
 		Role userRole = roleRepository.findByRole("USER");
 		user.setRoleSet(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
+		
 	}
 
 	public void validateIfUserEmailAlreadyExists(String email) throws RegisterException {
@@ -60,5 +59,8 @@ public class UserService {
 	public List<User> findUsers() {
 		return userRepository.findAll();
 	}
-	
+
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);
+	}
 }

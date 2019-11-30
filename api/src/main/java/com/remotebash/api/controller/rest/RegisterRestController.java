@@ -54,24 +54,24 @@ public class RegisterRestController {
 	@ApiOperation(value = "Cadastrar computadores", notes = "Cadastrar computador")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Computador cadastrado com sucesso") })
 	@PostMapping("/computers")
-	public ResponseEntity<String> registerComputers(@RequestBody Computer computer) {
+	public ResponseEntity<Computer> registerComputers(@RequestBody Computer computer) {
 		try {
 			computerService.saveComputer(computer);
-			return ResponseEntity.ok().body("Computador cadastrado com sucesso!");
+			return ResponseEntity.ok().body(computer);
 		} catch (RegisterException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
 	@ApiOperation(value = "Cadastrar laboratórios", notes = "Cadastrar laboratório")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Laboratório cadastrado com sucesso") })
 	@PostMapping("/laboratories")
-	public ResponseEntity<String> registerLaboratories(@RequestBody Laboratory laboratory) {
+	public ResponseEntity<Laboratory> registerLaboratories(@RequestBody Laboratory laboratory) {
 		try {
 			laboratoryService.saveLaboratory(laboratory);
-			return ResponseEntity.ok().body("Laboratório cadastrado com sucesso!");
+			return ResponseEntity.ok().body(laboratory);
 		} catch (RegisterException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			return ResponseEntity.badRequest().build();
 		}
 	}
   
@@ -83,9 +83,14 @@ public class RegisterRestController {
 			Command commandExecuted = commandService.executeCommand(command);
 			return ResponseEntity.ok(commandExecuted);
 		} catch (Exception e) {
-			Command cmd = new Command();
-			cmd.setResult(e.getMessage());
-			return ResponseEntity.badRequest().body(cmd);
+			if(command != null) {
+				command.setResult(e.getMessage());
+				return ResponseEntity.badRequest().body(command);
+			}else {
+				Command cmd = new Command();
+				cmd.setResult(e.getMessage());
+				return ResponseEntity.badRequest().body(cmd);	
+			}			
 		}
 	}
   

@@ -109,6 +109,12 @@
 			<version>2.9.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.28</version>
+		</dependency>
+
 
 	</dependencies>
 
@@ -124,9 +130,9 @@
 				<version>3.2.0</version>
 				<configuration>
 					<archive>
-					    <manifest>
-						<mainClass>com.remotebash.api.ApiApplication</mainClass>
-					    </manifest>
+						<manifest>
+							<mainClass>com.remotebash.api.ApiApplication</mainClass>
+						</manifest>
 					</archive>
 				</configuration>
 			</plugin>

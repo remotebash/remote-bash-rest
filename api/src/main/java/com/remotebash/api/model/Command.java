@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 public class Command {
 	private String idCommand;
 	private Long idComputer;
-	private String platform;
+	private String operationalSystem;
 	private String command;
 	private String result;
 	private Date start;
@@ -34,12 +34,12 @@ public class Command {
 		this.idComputer = idComputer;
 	}
 
-	public String getPlatform() {
-		return platform;
+	public String getOperationalSystem() {
+		return operationalSystem;
 	}
 
-	public void setPlatform(String platform) {
-		this.platform = platform;
+	public void setOperationalSystem(String operationalSystem) {
+		this.operationalSystem = operationalSystem;
 	}
 
 	public String getCommand() {

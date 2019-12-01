@@ -10,8 +10,8 @@ public class Command {
 	private String operationalSystem;
 	private String command;
 	private String result;
-	private Date start;
-	private Date end;
+	private String start;
+	private String end;
 	private Long userId;
 	private boolean isExecuted;
 	
@@ -58,20 +58,28 @@ public class Command {
 		this.result = result;
 	}
 
-	public Date getStart() {
+	public String getStart() {
 		return start;
 	}
 
 	public void setStart(Date start) {
-		this.start = start;
+		if(start == null) {this.start = null; return;};
+		java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		this.start = sdf.format(start);
 	}
 
-	public Date getEnd() {
+	public String getEnd() {
 		return end;
 	}
 
 	public void setEnd(Date end) {
-		this.end = end;
+		if(end == null) {this.end = null; return;};
+		java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		this.end = sdf.format(end);
 	}
 
 	public Long getUserId() {
@@ -86,7 +94,7 @@ public class Command {
 		return isExecuted;
 	}
 
-	public void setExecuted(boolean isExecuted) {
+	public void setIsExecuted(boolean isExecuted) {
 		this.isExecuted = isExecuted;
 	}
 

@@ -41,16 +41,19 @@ public class CommandService {
 		if(computer == null)
 			throw new Exception("Computador com o id " + command.getIdComputer() + " não existe.");
 		
-		if(!computerService.isComputerOnline(command.getIdComputer())) {
-			throw new Exception("O computador não está online.\n");
-		}
-		
 		command.setIdCommand(UUID.randomUUID().toString());
 		command.setStart(new Date());
 		command.setExecuted(false);
 		command.setEnd(null);
 		command.setResult("");
 		command.setOperationalSystem(computer.getOperationalSystem());
+		
+		if(!computerService.isComputerOnline(command.getIdComputer())) {
+			command.setExecuted(true);
+			command.setEnd(new Date());
+			command.setResult("O comando não foi executado pois o computador não está online.\n");
+			return command;
+		}
 		
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();

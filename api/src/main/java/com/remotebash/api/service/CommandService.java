@@ -1,14 +1,18 @@
 package com.remotebash.api.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.remotebash.api.model.Command;
 import com.remotebash.api.model.Computer;
 import com.remotebash.api.model.User;
@@ -41,24 +45,31 @@ public class CommandService {
 		if(computer == null)
 			throw new Exception("Computador com o id " + command.getIdComputer() + " não existe.");
 		
-		if(!computerService.isComputerOnline(command.getIdComputer())) {
-			throw new Exception("O computador não está online.\n");
-		}
-		
 		command.setIdCommand(UUID.randomUUID().toString());
 		command.setStart(new Date());
-		command.setExecuted(false);
+		command.setIsExecuted(false);
 		command.setEnd(null);
 		command.setResult("");
 		command.setOperationalSystem(computer.getOperationalSystem());
 		
+		if(!computerService.isComputerOnline(command.getIdComputer())) {
+			command.setIsExecuted(true);
+			command.setEnd(new Date());
+			command.setResult("O comando não foi executado pois o computador não está online.\n");
+			return command;
+		}
+		
+		String json = new JSONObject(command).toString();
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		
-	    HttpEntity<Command> requestEntity = new HttpEntity<>(command, headers);
-	    Command response = restTemplate.postForObject(URL_MICROSERVICE_COMMAND, requestEntity, Command.class);	    
-		
-	    return response;
+		List<MediaType> medias = new ArrayList<MediaType>();
+		medias.add(MediaType.APPLICATION_JSON);
+		medias.add(MediaType.APPLICATION_JSON_UTF8);
+		headers.setAccept(medias);
+	    HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
+	    String response = restTemplate.postForObject(URL_MICROSERVICE_COMMAND, requestEntity, String.class);	    
+	    Command cmd = new ObjectMapper().readValue(response, Command.class);
+	    return cmd;
 	}	
 }

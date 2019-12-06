@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,6 +25,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = ColumnName.USER_ID)
 	private Long id;
+	
 	@Column(name = ColumnName.NAME)
 	private String name;
 	
@@ -39,6 +41,7 @@ public class User {
 	
 	@Column(name = ColumnName.ADDRESS)
 	private String address;
+	
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)

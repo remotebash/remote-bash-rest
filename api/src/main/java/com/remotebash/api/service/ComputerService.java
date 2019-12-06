@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import com.remotebash.api.exception.RegisterException;
 import com.remotebash.api.model.Computer;
+import com.remotebash.api.model.Laboratory;
 import com.remotebash.api.repository.ComputerRepository;
 
 @Service
@@ -51,6 +52,12 @@ public class ComputerService {
 	
 	public void deleteComputer(Long id) {
 		computerRepository.deleteById(id);
+	}
+	
+	public void updateComputerLaboratory(Long id, Laboratory laboratory) {
+		Computer computer = computerRepository.getOne(id);
+		computer.setLaboratory(laboratory);
+		computerRepository.save(computer);
 	}
 	
 }

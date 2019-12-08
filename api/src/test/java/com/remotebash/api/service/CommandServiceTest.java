@@ -78,7 +78,6 @@ public class CommandServiceTest {
 		Command command = new Command();
 		command.setUserId(0L);
 		command.setCommand("ipconfig");
-		command.setCommand(StringUtils.EMPTY);
 		String exceptionMessage = StringUtils.EMPTY;
 		String expected = "O IdComputer não pode ser null";
 		try {

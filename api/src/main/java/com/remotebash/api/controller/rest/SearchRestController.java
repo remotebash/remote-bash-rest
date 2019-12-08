@@ -65,7 +65,7 @@ public class SearchRestController {
 	}
 	
 	@GetMapping("/command/{idComputer}")
-	public List<Command> searchCommandsByComputer(@RequestParam long idComputer) throws Exception {
+	public List<Command> searchCommandsByComputer(@PathVariable long idComputer) throws Exception {
 		return commandService.getCommandsByComputer(idComputer);
 	}
 

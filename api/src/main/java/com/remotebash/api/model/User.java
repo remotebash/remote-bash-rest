@@ -42,7 +42,6 @@ public class User {
 	@Column(name = ColumnName.ADDRESS)
 	private String address;
 	
-	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = TableName.ROLE_USER,  

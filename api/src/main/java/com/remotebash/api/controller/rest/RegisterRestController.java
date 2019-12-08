@@ -29,14 +29,14 @@ public class RegisterRestController {
 	private final ComputerService computerService;
 	private final LaboratoryService laboratoryService;
 	private final CommandService commandService;
-    
+
 	public RegisterRestController(UserService userService, ComputerService computerService,
 			LaboratoryService laboratoryService, CommandService commandService) {
 		super();
 		this.userService = userService;
 		this.computerService = computerService;
 		this.laboratoryService = laboratoryService;
-    this.commandService = commandService;
+		this.commandService = commandService;
 	}
 
 	@ApiOperation(value = "Cadastrar usuários", notes = "Cadastrar usuário")
@@ -63,7 +63,7 @@ public class RegisterRestController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
+
 	@ApiOperation(value = "Cadastrar laboratórios", notes = "Cadastrar laboratório")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Laboratório cadastrado com sucesso") })
 	@PostMapping("/laboratories")
@@ -75,24 +75,36 @@ public class RegisterRestController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-  
-  @ApiOperation(value = "Cadastro de execução de comandos", notes = "Cadastro de execução de comandos")
+
+	@ApiOperation(value = "Cadastro de execução de comandos", notes = "Cadastro de execução de comandos")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Objeto do tipo Command") })
-  @PostMapping("/command")
+	@PostMapping("/command")
 	public ResponseEntity<Command> registerExecutionCommand(@RequestBody Command command) {
 		try {
-			Command commandExecuted = commandService.executeCommand(command);
+			Command commandExecuted = commandService.executeOnComputer(command);
 			return ResponseEntity.ok(commandExecuted);
 		} catch (Exception e) {
-			if(command != null) {
+			if (command != null) {
 				command.setResult(e.getMessage());
 				return ResponseEntity.badRequest().body(command);
-			}else {
+			} else {
 				Command cmd = new Command();
 				cmd.setResult(e.getMessage());
-				return ResponseEntity.badRequest().body(cmd);	
-			}			
+				return ResponseEntity.badRequest().body(cmd);
+			}
 		}
 	}
-  
+	
+	@ApiOperation(value = "Cadastro de execução de comandos no laboratório", notes = "Cadastro de execução de comandos")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Objeto do tipo String") })
+	@PostMapping("/command/laboratory")
+	public ResponseEntity<String> registerExecutionCommandOnLaboratory(@RequestBody Command command) {
+		try {
+			String commandExecuted = commandService.executeOnLaboratory(command);
+			return ResponseEntity.ok(commandExecuted);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
 }

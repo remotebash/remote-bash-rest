@@ -23,7 +23,7 @@ public class CommandServiceTest {
 		String exceptionMessage = StringUtils.EMPTY;
 		String expected = "command não pode ser null";
 		try {
-			service.executeCommand(command);
+			service.executeOnComputer(command);
 		} catch (Exception ex) {
 			exceptionMessage = ex.getMessage();
 		}
@@ -37,7 +37,7 @@ public class CommandServiceTest {
 		String exceptionMessage = StringUtils.EMPTY;
 		String expected = "UserID não pode ser null";
 		try {
-			service.executeCommand(command);
+			service.executeOnComputer(command);
 		} catch (Exception ex) {
 			exceptionMessage = ex.getMessage();
 		}
@@ -51,7 +51,7 @@ public class CommandServiceTest {
 		String exceptionMessage = StringUtils.EMPTY;
 		String expected = "O Comando não pode ser null";
 		try {
-			service.executeCommand(command);
+			service.executeOnComputer(command);
 		} catch (Exception ex) {
 			exceptionMessage = ex.getMessage();
 		}
@@ -66,7 +66,7 @@ public class CommandServiceTest {
 		String exceptionMessage = StringUtils.EMPTY;
 		String expected = "O Comando não pode ser vazio";
 		try {
-			service.executeCommand(command);
+			service.executeOnComputer(command);
 		} catch (Exception ex) {
 			exceptionMessage = ex.getMessage();
 		}
@@ -82,7 +82,7 @@ public class CommandServiceTest {
 		String exceptionMessage = StringUtils.EMPTY;
 		String expected = "O IdComputer não pode ser null";
 		try {
-			service.executeCommand(command);
+			service.executeOnComputer(command);
 		} catch (Exception ex) {
 			exceptionMessage = ex.getMessage();
 		}
@@ -98,7 +98,7 @@ public class CommandServiceTest {
 		String exceptionMessage = StringUtils.EMPTY;
 		String expected = "Usuário com o id " + command.getUserId() + " não existe.";
 		try {
-			service.executeCommand(command);
+			service.executeOnComputer(command);
 		} catch (Exception ex) {
 			System.err.println("Usuário com o id " + command.getUserId() + " não existe.");
 			exceptionMessage = ex.getMessage();

@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 public class Command {
 	private String idCommand;
 	private Long idComputer;
+	private Long idLaboratory;
 	private String operationalSystem;
 	private String command;
 	private String result;
@@ -20,6 +21,14 @@ public class Command {
 
 	public String getIdCommand() {
 		return idCommand;
+	}
+
+	public Long getIdLaboratory() {
+		return idLaboratory;
+	}
+
+	public void setIdLaboratory(Long idLaboratory) {
+		this.idLaboratory = idLaboratory;
 	}
 
 	public void setIdCommand(String idCommand) {
@@ -76,7 +85,7 @@ public class Command {
 
 	public void setEnd(Date end) {
 		if(end == null) {this.end = null; return;};
-		java.text.SimpleDateFormat sdf = 
+		java.text.SimpleDateFormat sdf = 		
 			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		this.end = sdf.format(end);
@@ -110,9 +119,6 @@ public class Command {
 			if (this.getCommand().trim().length() == 0) {
 				warning += "O Comando não pode ser vazio.\n";
 			}	
-		}
-		if (this.getIdComputer() == null) {
-			warning += "O IdComputer não pode ser null.\n";
 		}
 
 		return warning;

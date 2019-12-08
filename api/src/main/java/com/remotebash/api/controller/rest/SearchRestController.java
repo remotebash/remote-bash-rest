@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.remotebash.api.model.Command;
 import com.remotebash.api.model.Computer;
 import com.remotebash.api.model.Laboratory;
 import com.remotebash.api.model.User;
+import com.remotebash.api.service.CommandService;
 import com.remotebash.api.service.ComputerService;
 import com.remotebash.api.service.LaboratoryService;
 import com.remotebash.api.service.UserService;
@@ -22,12 +24,14 @@ public class SearchRestController {
 	private final UserService userService;
 	private final ComputerService computerService; 
 	private final LaboratoryService laboratoryService;
+	private final CommandService commandService;
 	
-	public SearchRestController(ComputerService computerService, LaboratoryService laboratoryService, UserService userService) {
+	public SearchRestController(ComputerService computerService, LaboratoryService laboratoryService, UserService userService, CommandService commandService) {
 		super();
 		this.computerService = computerService;
 		this.laboratoryService = laboratoryService;
 		this.userService = userService;
+		this.commandService = commandService;
 	}
 
 	@GetMapping("/users")
@@ -58,6 +62,11 @@ public class SearchRestController {
 	@GetMapping("/computers")
 	public Computer searchComputersByMacAddress(@RequestParam List<String> macAddressList) {
 		return computerService.searchComputersByMacAddress(macAddressList);
+	}
+	
+	@GetMapping("/command/{idComputer}")
+	public List<Command> searchCommandsByComputer(@RequestParam long idComputer) throws Exception {
+		return commandService.getCommandsByComputer(idComputer);
 	}
 
 }
